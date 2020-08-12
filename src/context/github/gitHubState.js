@@ -1,9 +1,10 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import { gitHubReducer } from './gitHubReducer';
-import { gitHubContext } from './gitHubContext';
+import { GitHubContext } from './gitHubContext';
 import { CLEAR_USERS, GET_USER, GET_REPOS, SEARCH_USERS, SET_LOADING } from '../types';
 
-export const gitHubState = ({children}) => {
+export const GitHubState = ({children}) => {
     const initialState = {
         user: {},
         users: [],
@@ -11,21 +12,28 @@ export const gitHubState = ({children}) => {
         isLoading: false
     }
 
-    
+    const [state, dispatch] = useReducer(gitHubReducer, initialState);
+    const { users, repos, user, isLoading } = state;
+
+    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+    const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
     const search = async value => {
         setLoading();
-        //...
 
-        dispach({
+        const response = await axios.get(
+            `https://api.github.com/search/users?q=${value}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+        )
+
+        dispatch({
             type: SEARCH_USERS,
-            payload: []
+            payload: response.data.items
         });
     }
 
     const getRepos = async name => {
         setLoading();
-        dispach({
+        dispatch({
             type: GET_REPOS,
             payload: []
         });
@@ -33,30 +41,28 @@ export const gitHubState = ({children}) => {
 
     const getUser = async name => {
         setLoading();
-        dispach({
+        dispatch({
             type: GET_USER,
             payload: []
         });
     }
 
     const clearUsers = () => {
-        dispach({type: CLEAR_USERS});
+        dispatch({type: CLEAR_USERS});
     }
 
     const setLoading = () => {
-        dispach({type: SET_LOADING});
+        dispatch({type: SET_LOADING});
     }
 
-    const { users, repos, user, isLoading } = state;
-
-    const [state, dispach] = useReducer(gitHubReducer, initialState);
+    
 
     return (
-        <gitHubContext.Provider value={{
+        <GitHubContext.Provider value={{
             clearUsers, search, getRepos, getUser,
             users, repos, user, isLoading
         }}>
             {children}
-        </gitHubContext.Provider>
+        </GitHubContext.Provider>
     )
 }

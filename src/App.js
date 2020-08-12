@@ -9,12 +9,12 @@ import InfoPage from './pages/InfoPage';
 import ProfilePage from './pages/ProfilePage';
 import Alert from './components/Alert';
 import { AlertState } from './context/alert/AlertState';
-import { gitHubState } from './context/github/gitHubState';
+import { GitHubState } from './context/github/gitHubState';
 
 
 function App() {
   return (
-    <gitHubState>
+    <GitHubState>
       <AlertState>
         <BrowserRouter>
           <Navbar />
@@ -28,7 +28,7 @@ function App() {
           </div>
         </BrowserRouter>
       </AlertState>
-    </gitHubState>
+    </GitHubState>
   );
 }
 

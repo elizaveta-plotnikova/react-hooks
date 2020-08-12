@@ -2,13 +2,17 @@ import React from 'react';
 import { useContext } from 'react';
 import { AlertContext } from '../context/alert/alertContext';
 import { useState } from 'react';
+import { GitHubContext } from './../context/github/gitHubContext';
  
 const Search = () => {
     const {show, hide} = useContext(AlertContext);
+    const github = useContext(GitHubContext);
     const [value, setValue] = useState('');
 
     const btnHandler = () => {
-        if (value === '') {
+        if (value !== '') {
+            github.search(value);
+        } else {
             show('Input is empty. Please, write something!');
         }
     }

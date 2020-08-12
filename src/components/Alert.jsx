@@ -8,9 +8,9 @@ const Alert = () => {
     if (!alert) return null;
 
     return (
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div className="alert alert-warning alert-dismissible fade show" role="alert">
             {alert.text}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClick={hide}>
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={hide}>
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
