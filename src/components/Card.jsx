@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {NavLink} from 'react-router-dom';
+import { GitHubContext } from '../context/github/gitHubContext';
 
 
-const Card = () => (
-    <div className="col mb-4" style={{maxWidth: 540 + 'px'}}>
-        <div className="card">
-            <div className="col-md-4">
-                <img src="..." className="card-img" alt="..." />
-            </div>
-            <div className="col-md-8">
-                <div className="card-body">
-                    <h5 className="card-title">User Name</h5>
-                    <p className="card-text">This is a wider card with supporting text beloditionals bit longer.</p>
-                    <NavLink className="btn btn-primary" to={'/profile'}>Show profile</NavLink>
+const Card = ({user}) => {
+    console.log('card users', {user});
+
+    return (
+        <div className="col mb-4" style={{maxWidth: 540 + 'px'}}>
+            <div className="card">
+                <div className="col-md-8">
+                    <div className="card-body">
+                        <h5>{user.login}</h5>
+                        <div style={{minWidth: 150 + 'px'}, {maxWidth: 150 + 'px'}}>
+                            <img src={user.avatar_url} className="card-img" alt="..." />
+                        </div>
+                        <div style={{marginTop: 20 + 'px'}}>
+                            <NavLink className="btn btn-primary" to={'/profile' + user.id}>Show profile</NavLink>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-)
+    )
+}
 
 export default Card;

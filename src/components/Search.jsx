@@ -11,7 +11,7 @@ const Search = () => {
 
     const btnHandler = () => {
         if (value !== '') {
-            github.search(value);
+            github.search(value); 
         } else {
             show('Input is empty. Please, write something!');
         }

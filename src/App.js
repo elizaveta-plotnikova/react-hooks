@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import './App.scss';
@@ -10,6 +10,7 @@ import ProfilePage from './pages/ProfilePage';
 import Alert from './components/Alert';
 import { AlertState } from './context/alert/AlertState';
 import { GitHubState } from './context/github/gitHubState';
+import { GitHubContext } from './context/github/gitHubContext';
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={HomePage} />
               <Route path="/info" component={InfoPage} />
-              <Route path="/profile" component={ProfilePage} />
+              <Route path="/profile:id" component={ProfilePage} />
             </Switch>
           </div>
         </BrowserRouter>
